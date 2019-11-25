@@ -1,0 +1,39 @@
+collections_root: ./collections
+collections:
+    # replay collection
+    patch_source:
+        sequence:
+            -
+                index_paths: ./collections/test/indexes/
+                archive_paths: ./collections/test/archive/
+                name: replay_source
+            -
+                index: cdx+https://preprod.arquivo.pt/wayback/cdx
+                name: arquivo
+            -
+                index: memento+https://web.archive.org/web/
+                name: ia
+            -
+                index: $live
+                name: live 
+
+
+recorder:
+   source_coll: patch_source
+   rollover_size: 100000000
+   rollover_idle_secs: 600
+   filename_template: patching-integration-{timestamp}-{random}.warc.gz
+   source_filter: live|ia
+
+framed_replay: false
+redirect_to_exact: true
+enable_auto_fetch: true
+autoindex: 30
+debug: True
+
+#arquivo: memento+https://preprod.arquivo.pt/wayback/
+#all: $all 
+
+#http://portosdeportugal.pt/css/global.css
+
+#http://localhost:8080/portos/record/20131107103646/http://www.portosdeportugal.pt/sartigo/index.php?x=9066
